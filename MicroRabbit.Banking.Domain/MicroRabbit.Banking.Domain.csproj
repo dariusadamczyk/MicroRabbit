@@ -12,4 +12,7 @@
     <Folder Include="Commands\" />
     <Folder Include="CommandHandlers\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MicroRabbit.Core.Domain\MicroRabbit.Domain.Core.csproj" />
+  </ItemGroup>
 </Project>
