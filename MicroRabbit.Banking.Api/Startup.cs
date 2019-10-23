@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,9 +36,15 @@ namespace MicroRabbit.Banking.Api
                 options.UseSqlServer(Configuration.GetConnectionString("BankingDbConnection"));
             });
             //services.AddControllers();
+            
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0 ).AddMvcOptions(c=> { c.EnableEndpointRouting = false; });
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "Banking Microservice", Version = "v1" }); });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Banking Microservice", Version = "v1" });
+            });
+
             services.AddMediatR(typeof(Startup));
 
             RegisterServices(services);
@@ -55,28 +62,21 @@ namespace MicroRabbit.Banking.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
 
             app.UseSwagger();
-
-            
-
-            app.UseSwaggerUI(c=> {
-
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Banking Microservice V1");
-
-            });
-            app.UseMvc();
-            /*app.UseAuthorization();
-            app.UseRouting();
-            app.UseEndpoints(endpoints =>
+            app.UseSwaggerUI(c =>
             {
-                endpoints.MapControllers();
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Banking Microservice V1");
             });
 
-
-             */
+            app.UseMvc();
 
         }
     }
