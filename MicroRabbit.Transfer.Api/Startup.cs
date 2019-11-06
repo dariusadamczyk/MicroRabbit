@@ -40,7 +40,7 @@ namespace MicroRabbit.Transfer.Api
             //services.AddControllers();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddMvcOptions(c => { c.EnableEndpointRouting = false; });
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "Transfer Microservice", Version = "v1" }); });
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Transfer Microservice", Version = "v1" }); });
             services.AddMediatR(typeof(Startup));
 
             RegisterServices(services);
