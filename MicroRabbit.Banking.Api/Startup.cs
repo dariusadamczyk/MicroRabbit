@@ -33,6 +33,7 @@ namespace MicroRabbit.Banking.Api
         {
             services.AddDbContext<BankingDbContext>(options =>
             {
+                var a = Configuration.GetConnectionString("BankingDbConnection");
                 options.UseSqlServer(Configuration.GetConnectionString("BankingDbConnection"));
             });
             //services.AddControllers();
